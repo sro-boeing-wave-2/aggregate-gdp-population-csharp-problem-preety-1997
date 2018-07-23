@@ -11,11 +11,11 @@ namespace AggregateGDPPopulation.Tests
     {
        [Fact]
 
-        public void CompareFile()
+        async public void CompareFile()
 
         {
 
-            AggregateGDPPopulation.Aggregate(@"../../../../AggregateGDPPopulation/data/datafile.csv");
+           await AggregateGDPPopulation.Aggregate(@"../../../../AggregateGDPPopulation/data/datafile.csv");
 
             string ActualOutput = File.ReadAllText("../../../expected-output.json");
 

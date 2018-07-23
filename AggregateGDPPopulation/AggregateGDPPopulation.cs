@@ -62,6 +62,7 @@ namespace AggregateGDPPopulation
 			var ReadCsvFile = ReadFile(filePath);
 
 			var ReadContinentFile = ReadFile(mapperFilePath);
+			await Task.WhenAll(ReadCsvFile,ReadContinentFile);
 
 			var Mapper = JsonConvert.DeserializeObject<Dictionary<string, string>>(ReadContinentFile.Result);
 
