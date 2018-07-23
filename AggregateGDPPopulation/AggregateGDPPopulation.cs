@@ -30,13 +30,14 @@ namespace AggregateGDPPopulation
 
         {
 
-            string outputFilePath = Environment.CurrentDirectory + @"/output/output.json";
+			string outputDirectory = @"../../../../AggregateGDPPopulation/output";
+            string outputFilePath = @"../../../../AggregateGDPPopulation/output/output.json";
 
-            if (!Directory.Exists(Environment.CurrentDirectory + @"/output"))
+			if (!Directory.Exists(outputDirectory))
 
             {
 
-                Directory.CreateDirectory(Environment.CurrentDirectory + @"/output");
+                Directory.CreateDirectory(outputDirectory);
 
             }
 
@@ -79,41 +80,35 @@ namespace AggregateGDPPopulation
 
             {
 
-                try
+				try
 
-                {
+				{
 
-                    string[] row = DataProcessed[i].Split(',');
+					string[] row = DataProcessed[i].Split(',');
 
-                    string countryName = row[indexOfCountries];
+					string countryName = row[indexOfCountries];
 
-                    string nameOfContinent = Mapper[countryName];
+					string nameOfContinent = Mapper[countryName];
 
-                    float Population = float.Parse(row[indexOfPopulation]);
+					float Population = float.Parse(row[indexOfPopulation]);
 
-                    float Gdp = float.Parse(row[indexOfGDP]);
+					float Gdp = float.Parse(row[indexOfGDP]);
+					if (nameOfContinent != null)
+					{
+						if (aggregateDictionary.ContainsKey(nameOfContinent))
+						{
+							aggregateDictionary[nameOfContinent].GDP_2012 += Gdp;
+							aggregateDictionary[nameOfContinent].POPULATION_2012 += Population;
+						}
+						else
+						{
+							Data data = new Data() { GDP_2012=Gdp ,POPULATION_2012 =Population};
+							aggregateDictionary.Add(nameOfContinent, data);
+						}
+					}
+				}
 
-                    try
-
-                    {
-
-                        aggregateDictionary[nameOfContinent].GDP_2012+=Gdp;
-						aggregateDictionary[nameOfContinent].Population_2012+=Population;
-
-                    }
-
-                    catch
-
-                    {
-
-                      Data data = new Data(){ Population_2012 = Population ,GDP_2012 = Gdp };
-						aggregateDictionary.Add(nameOfContinent,data);
-
-                    }
-
-                }
-
-                catch { }               
+				catch { }               
 
             }
 			//Console.WriteLine(aggregateDictionary);
