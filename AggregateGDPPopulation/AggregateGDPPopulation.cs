@@ -95,19 +95,21 @@ namespace AggregateGDPPopulation
 					float Population = float.Parse(row[indexOfPopulation]);
 
 					float Gdp = float.Parse(row[indexOfGDP]);
-					try
-					{
+					
+						try
+						{
 
-						aggregateDictionary[nameOfContinent].GDP_2012 += Gdp;
-						aggregateDictionary[nameOfContinent].POPULATION_2012 += Population;
-					}
+							aggregateDictionary[nameOfContinent].GDP_2012 += Gdp;
+							aggregateDictionary[nameOfContinent].POPULATION_2012 += Population;
+						}
 
-					catch
-					{
-						Data data = new Data() { GDP_2012 = Gdp, POPULATION_2012 = Population };
-						aggregateDictionary.Add(nameOfContinent, data);
-					}
+						catch
+						{
+							Data data = new Data() { GDP_2012 = Gdp, POPULATION_2012 = Population };
+							aggregateDictionary.Add(nameOfContinent, data);
+						}
 
+					
 				}
 
 				catch { }
